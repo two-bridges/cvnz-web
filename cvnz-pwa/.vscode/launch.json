@@ -1,0 +1,57 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    // DG: Create React App > Development > Editor Setup  https://create-react-app.dev/docs/setting-up-your-editor/
+    {
+      "name": "v2 - Dev - Org - dg_test_11",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "start",
+      "url": "http://localhost:3000/auth/blue_mountains/login",
+      "webRoot": "${workspaceFolder}/cvnz-pwa/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      // pre launch didn't work.  The following (official) suggests to run at CLI then start debugger.   https://code.visualstudio.com/docs/nodejs/reactjs-tutorial
+      // "preLaunchTask": "start:dev",
+      "name": "Dev - blue_mountains",
+      "url": "http://localhost:3000/auth/blue_mountains/login",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      // pre launch didn't work.  The following (official) suggests to run at CLI then start debugger.   https://code.visualstudio.com/docs/nodejs/reactjs-tutorial
+      // "preLaunchTask": "start:dev",
+      // Evans from iPad: http://192.168.1.63:3000/auth/dg_test_11/login 
+      "name": "Dev - Org - dg_test_11",
+      "url": "http://localhost:3000/auth/dg_test_11/login",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      // pre launch didn't work.  The following (official) suggests to run at CLI then start debugger.   https://code.visualstudio.com/docs/nodejs/reactjs-tutorial
+      // "preLaunchTask": "start:dev",
+      "name": "Dev - Admin",
+      "url": "http://localhost:3000/auth/admin/login",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      // pre launch didn't work.  The following (official) suggests to run at CLI then start debugger.   https://code.visualstudio.com/docs/nodejs/reactjs-tutorial
+      // "preLaunchTask": "start:live",
+      "name": "Start LIVE",
+      "url": "http://localhost:3000/auth/admin/login",
+      "webRoot": "${workspaceFolder}"
+    },
+  ]
+}

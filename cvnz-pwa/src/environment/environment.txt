@@ -1,0 +1,2 @@
+export var isDev = false;
+export var version = '__version__';

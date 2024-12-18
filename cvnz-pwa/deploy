@@ -1,0 +1,18 @@
+export CVA_WEB=/c/code/cva/cva-web/build
+export CVA_DEPLOY=/c/code/cva/cva-deploy
+
+cd $CVA_DEPLOY
+rm *
+rm -rf static/
+
+cd $CVA_WEB
+cp -r * $CVA_DEPLOY
+
+cd $CVA_DEPLOY
+git add .
+git commit -m "deploy"
+git push
+
+cd #CVA_WEB
+
+ssh ec2-user@52.2.214.55; # ssh to twobridges live aws

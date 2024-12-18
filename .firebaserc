@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "prod": "__prod__project__id__",
+    "dev": "__dev__project__id__",
+    "default": "__dev__project__id__"
+  },
+  "targets": {}
+}

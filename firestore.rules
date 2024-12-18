@@ -1,0 +1,74 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSysAdmin(userId) {
+      return exists(/databases/$(database)/documents/Admins/$(userId));
+    }
+    function isFieldBaseUser(userId) {
+      return exists(/databases/$(database)/documents/Users/$(userId));
+    }
+
+    let hasRoleSysAdmin = isSysAdmin(request.auth.uid);
+    let hasRoleFieldBaseUser = isFieldBaseUser(request.auth.uid);
+
+    match /{document=**} {
+      allow read, write: if hasRoleSysAdmin;
+    }
+    match /GoalTypes/{document=**} {
+      allow read: if hasRoleFieldBaseUser;
+    }
+    match /Risks/{document=**} {
+      allow read: if hasRoleFieldBaseUser;
+    }
+
+    // organisation root doc is public
+    match /Organisations/{orgId} {
+      function isOrgAdmin(userId) {
+        // `orgId` variable comes from match rule
+        return exists(/databases/$(database)/documents/Organisations/$(orgId)/Admins/$(userId));
+      }
+      function isOrgUser(userId) {
+        // `orgId` variable comes from match rule
+        return exists(/databases/$(database)/documents/Organisations/$(orgId)/Users/$(userId));
+      }
+
+      let hasRoleOrgAdmin = isOrgAdmin(request.auth.uid);
+      let hasRoleOrgUser = isOrgUser(request.auth.uid);
+
+      match /{docGlobal=**} {
+        // this includes the organisation document as welll
+        allow read, write: if hasRoleOrgAdmin;
+      }
+
+      match /GoalTypes/{docGoalType=**} {
+        // this includes the organisation document as welll
+        allow read: if hasRoleOrgUser;
+      }
+
+      match /Projects/{projectId} {
+        match /Goals/{fieldNoteId} {
+          allow read: if hasRoleOrgUser
+        }
+        match /ProjectRisks/{fieldNoteId} {
+        }
+        match /FieldNotes/{fieldNoteId}/{docFieldNote=**} {
+          let fieldNote = get(/databases/$(database)/documents/Organisations/$(orgId)/Projects/$(projectId)/FieldNotes/$(fieldNoteId));
+          let isFieldNoteOwner = fieldNote.created_by == request.auth.uid;
+          
+          allow read, write: if isFieldNoteOwner;
+          // match /Outcomes/{outcomeId} {
+          // }
+          // match /Staffs/{outcomeId} {
+          // }
+          // match /Volunteers/{outcomeId} {
+          // }
+          // match /Risks/{outcomeId} {
+          // }
+        }
+
+      }
+      
+    }
+    
+  }
+}

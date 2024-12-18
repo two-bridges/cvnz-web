@@ -1,0 +1,33 @@
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
+import { makeStyles } from '@mui/styles';
+import { Card, CardContent, Theme } from '@mui/material';
+import Markdown from '../../../components/Markdown';
+
+const useStyles = makeStyles<Theme>(() => ({
+  root: {}
+}));
+
+function Brief({ brief, className = "", ...rest }) {
+  const classes = useStyles({});
+
+  return (
+    <Card
+      {...rest}
+      className={clsx(classes.root, className)}
+    >
+      <CardContent>
+        <Markdown source={brief} />
+      </CardContent>
+    </Card>
+  );
+}
+
+Brief.propTypes = {
+  brief: PropTypes.string.isRequired,
+  className: PropTypes.string
+};
+
+export default Brief;
