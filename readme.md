@@ -22,7 +22,24 @@
 ```
 
 # npm install....
+* fyi, the packages require a 'force' install
+* tested with:
+  * node version: v18.20.5
+  * npm version: 10.8.2
 ```bash
+# the packages require a 'force' install
+npm i --force
+
+
+# FYI, I've tested this with the following versions...
+# v18.20.5
+node --version
+
+# 10.8.2
+npm --version 
+
+
+
 ```
 
 # setup new firebase projects: dev and production
